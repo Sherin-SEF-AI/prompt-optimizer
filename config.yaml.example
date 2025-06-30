@@ -1,0 +1,64 @@
+# Prompt Optimizer Configuration Example
+# Author: Sherin Joseph Roy
+# Email: sherin.joseph2217@gmail.com
+# GitHub: https://github.com/Sherin-SEF-AI/prompt-optimizer.git
+# LinkedIn: https://www.linkedin.com/in/sherin-roy-deepmost/
+
+database:
+  url: "sqlite:///prompt_optimizer.db"
+  pool_size: 10
+  max_overflow: 20
+
+redis:
+  url: "redis://localhost:6379"
+  ttl: 3600
+
+providers:
+  openai:
+    api_key: "${OPENAI_API_KEY}"
+    default_model: "gpt-3.5-turbo"
+    rate_limit: 100
+  anthropic:
+    api_key: "${ANTHROPIC_API_KEY}"
+    default_model: "claude-3-sonnet-20240229"
+    rate_limit: 50
+  google:
+    api_key: "${GOOGLE_API_KEY}"
+    default_model: "gemini-pro"
+    rate_limit: 60
+  huggingface:
+    api_key: "${HUGGINGFACE_API_KEY}"
+    default_model: "meta-llama/Llama-2-7b-chat-hf"
+    rate_limit: 30
+
+optimization:
+  max_iterations: 50
+  population_size: 20
+  mutation_rate: 0.1
+  crossover_rate: 0.8
+  target_metrics: ["quality", "cost", "latency"]
+
+testing:
+  default_significance_level: 0.05
+  min_sample_size: 100
+  max_duration_days: 14
+  early_stopping: true
+  confidence_threshold: 0.95
+
+analytics:
+  quality_threshold: 0.7
+  cost_threshold: 0.01
+  latency_threshold: 2000
+  enable_caching: true
+  cache_ttl: 3600
+
+server:
+  host: "0.0.0.0"
+  port: 8000
+  debug: false
+  cors_origins: ["*"]
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "prompt_optimizer.log" 

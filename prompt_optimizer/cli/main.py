@@ -1,12 +1,12 @@
 """
-Prompt Optimizer CLI
+llm-prompt-optimizer CLI
 
 Author: Sherin Joseph Roy
 Email: sherin.joseph2217@gmail.com
 GitHub: https://github.com/Sherin-SEF-AI/prompt-optimizer.git
 LinkedIn: https://www.linkedin.com/in/sherin-roy-deepmost/
 
-Command-line interface for the Prompt Optimizer framework.
+Command-line interface for the llm-prompt-optimizer framework (PyPI: llm-prompt-optimizer).
 """
 
 import click
@@ -15,12 +15,14 @@ import click
 @click.version_option(version="0.1.0", prog_name="prompt-optimizer")
 def main():
     """
-    Prompt Optimizer CLI - A comprehensive framework for systematic A/B testing and optimization of LLM prompts.
+    llm-prompt-optimizer CLI - A comprehensive framework for systematic A/B testing and optimization of LLM prompts.
     
     Author: Sherin Joseph Roy
     Email: sherin.joseph2217@gmail.com
     GitHub: https://github.com/Sherin-SEF-AI/prompt-optimizer.git
     LinkedIn: https://www.linkedin.com/in/sherin-roy-deepmost/
+    
+    Install via: pip install llm-prompt-optimizer
     """
     pass
 

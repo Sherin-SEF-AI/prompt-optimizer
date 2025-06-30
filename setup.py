@@ -3,12 +3,9 @@ from setuptools import setup, find_packages
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-with open("requirements.txt", "r", encoding="utf-8") as fh:
-    requirements = [line.strip() for line in fh if line.strip() and not line.startswith("#")]
-
 setup(
-    name="prompt-optimizer",
-    version="0.1.0",
+    name="llm-prompt-optimizer",
+    version="0.1.1",
     author="Sherin Joseph Roy",
     author_email="sherin.joseph2217@gmail.com",
     description="A comprehensive framework for systematic A/B testing, optimization, and performance analytics of LLM prompts across multiple providers",
@@ -39,27 +36,6 @@ setup(
         "Topic :: Software Development :: Testing",
     ],
     python_requires=">=3.8",
-    install_requires=requirements,
-    extras_require={
-        "dev": [
-            "pytest>=7.4.0",
-            "pytest-asyncio>=0.21.0",
-            "pytest-cov>=4.1.0",
-            "black>=23.0.0",
-            "flake8>=6.0.0",
-            "mypy>=1.4.0",
-            "pre-commit>=3.3.0",
-        ],
-        "docs": [
-            "sphinx>=7.0.0",
-            "sphinx-rtd-theme>=1.2.0",
-        ],
-    },
-    entry_points={
-        "console_scripts": [
-            "prompt-optimizer=prompt_optimizer.cli.main:main",
-        ],
-    },
     keywords="llm prompt optimization a/b testing machine learning ai",
     license="MIT",
 ) 

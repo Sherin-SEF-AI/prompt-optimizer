@@ -1,18 +1,18 @@
 """
-Prompt Optimizer - A comprehensive framework for systematic A/B testing, optimization, and performance analytics of LLM prompts.
+llm-prompt-optimizer - A comprehensive framework for systematic A/B testing, optimization, and performance analytics of LLM prompts.
 
 Author: Sherin Joseph Roy
 Email: sherin.joseph2217@gmail.com
 GitHub: https://github.com/Sherin-SEF-AI/prompt-optimizer.git
 LinkedIn: https://www.linkedin.com/in/sherin-roy-deepmost/
 
-A production-ready Python package for systematic A/B testing, optimization, and performance analytics of LLM prompts across multiple providers (OpenAI, Anthropic, Google, HuggingFace, local models).
+A production-ready Python package (PyPI: llm-prompt-optimizer) for systematic A/B testing, optimization, and performance analytics of LLM prompts across multiple providers (OpenAI, Anthropic, Google, HuggingFace, local models).
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __author__ = "Sherin Joseph Roy"
 __email__ = "sherin.joseph2217@gmail.com"
-__url__ = "https://github.com/Sherin-SEF-AI/prompt-optimizer.git"
+__url__ = "https://pypi.org/project/llm-prompt-optimizer/"
 __license__ = "MIT"
 
 # Core imports

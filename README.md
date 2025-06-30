@@ -1,4 +1,4 @@
-# Prompt Optimizer
+# llm-prompt-optimizer
 
 A comprehensive framework for systematic A/B testing, optimization, and performance analytics of LLM prompts across multiple providers (OpenAI, Anthropic, Google, HuggingFace, local models).
 
@@ -25,7 +25,7 @@ A comprehensive framework for systematic A/B testing, optimization, and performa
 ## Installation
 
 ```bash
-pip install prompt-optimizer
+pip install llm-prompt-optimizer
 ```
 
 Or install from source:

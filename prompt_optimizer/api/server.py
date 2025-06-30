@@ -20,8 +20,8 @@ def create_app(config: Optional[OptimizerConfig] = None):
         config = OptimizerConfig()
     optimizer = PromptOptimizer(config)
     app = FastAPI(
-        title="Prompt Optimizer API",
-        description="A comprehensive framework for systematic A/B testing and optimization of LLM prompts by Sherin Joseph Roy",
+        title="llm-prompt-optimizer API",
+        description="A comprehensive framework for systematic A/B testing and optimization of LLM prompts by Sherin Joseph Roy (PyPI: llm-prompt-optimizer)",
         version="0.1.0",
         contact={
             "name": "Sherin Joseph Roy",
@@ -44,11 +44,12 @@ def create_app(config: Optional[OptimizerConfig] = None):
     @app.get("/")
     async def root():
         return {
-            "message": "Prompt Optimizer API",
+            "message": "llm-prompt-optimizer API",
             "version": "0.1.0",
             "author": "Sherin Joseph Roy",
             "email": "sherin.joseph2217@gmail.com",
             "github": "https://github.com/Sherin-SEF-AI/prompt-optimizer.git",
+            "pypi": "https://pypi.org/project/llm-prompt-optimizer/",
             "linkedin": "https://www.linkedin.com/in/sherin-roy-deepmost/",
             "docs": "/docs"
         }

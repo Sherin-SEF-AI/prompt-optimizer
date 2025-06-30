@@ -4,6 +4,7 @@ A comprehensive framework for systematic A/B testing, optimization, and performa
 
 ![image](https://github.com/user-attachments/assets/fec26995-bbbe-4cdc-b505-abbcc906af25)
 
+![image](https://github.com/user-attachments/assets/b6512bac-4310-4e9f-bb4d-7b2089d25912)
 
 ## Author
 

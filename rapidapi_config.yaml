@@ -1,0 +1,126 @@
+# RapidAPI Configuration for LLM Prompt Optimizer
+
+api:
+  name: "LLM Prompt Optimizer"
+  description: "A comprehensive framework for systematic A/B testing and optimization of LLM prompts"
+  version: "0.1.1"
+  category: "AI & Machine Learning"
+  tags:
+    - "AI"
+    - "Machine Learning"
+    - "A/B Testing"
+    - "Prompt Engineering"
+    - "LLM"
+    - "Optimization"
+    - "Analytics"
+
+authentication:
+  type: "api_key"
+  header_name: "X-RapidAPI-Key"
+  description: "Your RapidAPI subscription key"
+
+endpoints:
+  base_url: "https://llm-prompt-optimizer.p.rapidapi.com"
+  health_check: "/health"
+  documentation: "/docs"
+  openapi_spec: "/openapi.json"
+
+pricing:
+  free_tier:
+    name: "Free"
+    price: 0
+    requests_per_month: 100
+    features:
+      - "Basic A/B testing"
+      - "Up to 3 prompt variants"
+      - "Basic analytics"
+      - "Email support"
+  
+  basic_plan:
+    name: "Basic"
+    price: 9.99
+    requests_per_month: 1000
+    features:
+      - "Advanced A/B testing"
+      - "Up to 10 prompt variants"
+      - "Statistical analysis"
+      - "Export results"
+      - "Priority support"
+  
+  pro_plan:
+    name: "Pro"
+    price: 29.99
+    requests_per_month: 10000
+    features:
+      - "Unlimited A/B testing"
+      - "Unlimited prompt variants"
+      - "Advanced analytics"
+      - "Genetic optimization"
+      - "Multi-provider support"
+      - "Real-time monitoring"
+      - "Dedicated support"
+  
+  enterprise:
+    name: "Enterprise"
+    price: "Custom"
+    requests_per_month: "Unlimited"
+    features:
+      - "Custom integrations"
+      - "On-premise deployment"
+      - "Custom analytics"
+      - "Dedicated account manager"
+      - "SLA guarantees"
+
+deployment:
+  platform: "rapidapi"
+  runtime: "python"
+  python_version: "3.11"
+  framework: "fastapi"
+  
+  environment_variables:
+    - name: "OPENAI_API_KEY"
+      description: "OpenAI API key for GPT models"
+      required: false
+    - name: "ANTHROPIC_API_KEY"
+      description: "Anthropic API key for Claude models"
+      required: false
+    - name: "DATABASE_URL"
+      description: "Database connection string"
+      required: false
+      default: "sqlite:///prompt_optimizer.db"
+    - name: "REDIS_URL"
+      description: "Redis connection string for caching"
+      required: false
+    - name: "LOG_LEVEL"
+      description: "Logging level"
+      required: false
+      default: "INFO"
+
+monitoring:
+  health_check_interval: 30
+  timeout: 30
+  retries: 3
+  metrics:
+    - "request_count"
+    - "response_time"
+    - "error_rate"
+    - "cost_tracking"
+    - "token_usage"
+
+documentation:
+  api_docs: "/docs"
+  redoc: "/redoc"
+  github: "https://github.com/Sherin-SEF-AI/prompt-optimizer"
+  pypi: "https://pypi.org/project/llm-prompt-optimizer"
+  contact: "sherin.joseph2217@gmail.com"
+
+support:
+  email: "sherin.joseph2217@gmail.com"
+  github_issues: "https://github.com/Sherin-SEF-AI/prompt-optimizer/issues"
+  documentation: "https://github.com/Sherin-SEF-AI/prompt-optimizer/blob/main/README.md"
+  rapidapi_support: true
+
+legal:
+  license: "MIT"
+  terms_of_service: "https://github.com/Sherin-SEF-AI/prompt-optimizer/blob/main/LICENSE"
+  privacy_policy: "https://github.com/Sherin-SEF-AI/prompt-optimizer/blob/main/PRIVACY.md" 

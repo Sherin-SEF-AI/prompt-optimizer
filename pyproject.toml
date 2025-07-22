@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "llm-prompt-optimizer"
-version = "0.1.1"
-description = "A comprehensive framework for systematic A/B testing, optimization, and performance analytics of LLM prompts across multiple providers"
+version = "0.3.0"
+description = "A comprehensive framework for systematic A/B testing, optimization, performance analytics, security, and monitoring of LLM prompts across multiple providers with enterprise-ready API"
 readme = "README.md"
 license = {text = "MIT"}
 authors = [
@@ -54,12 +54,15 @@ dependencies = [
     "seaborn>=0.12.0",
     "plotly>=5.15.0",
     "dash>=2.11.0",
+    "streamlit>=1.28.0",
     "openai>=1.0.0",
     "anthropic>=0.7.0",
     "google-generativeai>=0.3.0",
     "transformers>=4.30.0",
     "torch>=2.0.0",
     "tiktoken>=0.4.0",
+    "asyncio-mqtt>=0.13.0",
+    "websockets>=11.0.0",
 ]
 
 [project.optional-dependencies]

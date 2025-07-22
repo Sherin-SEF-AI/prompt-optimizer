@@ -55,6 +55,27 @@ class OptimizePromptRequest(BaseModel):
     base_prompt: str = Field(..., description="Base prompt to optimize")
     optimization_config: Dict[str, Any] = Field(default_factory=dict, description="Optimization configuration")
 
+class ContentSafetyRequest(BaseModel):
+    content: str = Field(..., description="Content to check for safety")
+
+class BiasDetectionRequest(BaseModel):
+    text: str = Field(..., description="Text to check for bias")
+
+class InjectionDetectionRequest(BaseModel):
+    prompt: str = Field(..., description="Prompt to check for injection attacks")
+
+class ComplianceCheckRequest(BaseModel):
+    experiment_id: str = Field(..., description="Experiment ID to check for compliance")
+
+class ABTestRequest(BaseModel):
+    experiment_id: str = Field(..., description="Experiment ID to run A/B test on")
+    sample_size: int = Field(default=100, description="Sample size for the test")
+
+class SignificanceRequest(BaseModel):
+    experiment_id: str = Field(..., description="Experiment ID")
+    variant_a: str = Field(..., description="First variant name")
+    variant_b: str = Field(..., description="Second variant name")
+
 class APIResponse(BaseModel):
     success: bool = Field(..., description="Whether the request was successful")
     data: Optional[Dict[str, Any]] = Field(None, description="Response data")
@@ -453,6 +474,259 @@ def create_app(config: Optional[OptimizerConfig] = None):
             )
         except Exception as e:
             logger.error(f"Error getting config: {e}")
+            raise HTTPException(status_code=400, detail=str(e))
+
+    # Monitoring Endpoints
+    @app.get("/api/v1/monitoring/dashboard", response_model=APIResponse)
+    async def get_dashboard_data():
+        """Get real-time dashboard data."""
+        try:
+            opt = get_optimizer()
+            # Import monitoring module
+            from ..monitoring.real_time_dashboard import RealTimeDashboard
+            
+            dashboard = RealTimeDashboard(opt)
+            data = await dashboard.get_dashboard_data()
+            
+            return APIResponse(
+                success=True,
+                data=data,
+                message="Dashboard data retrieved successfully"
+            )
+        except Exception as e:
+            logger.error(f"Error getting dashboard data: {e}")
+            raise HTTPException(status_code=400, detail=str(e))
+
+    @app.get("/api/v1/monitoring/metrics", response_model=APIResponse)
+    async def get_system_metrics():
+        """Get system performance metrics."""
+        try:
+            opt = get_optimizer()
+            from ..analytics.performance import PerformanceAnalyzer
+            
+            analyzer = PerformanceAnalyzer(opt)
+            metrics = await analyzer.get_system_metrics()
+            
+            return APIResponse(
+                success=True,
+                data=metrics,
+                message="System metrics retrieved successfully"
+            )
+        except Exception as e:
+            logger.error(f"Error getting system metrics: {e}")
+            raise HTTPException(status_code=400, detail=str(e))
+
+    # Analytics Endpoints
+    @app.get("/api/v1/analytics/cost-summary", response_model=APIResponse)
+    async def get_cost_summary():
+        """Get cost tracking summary."""
+        try:
+            opt = get_optimizer()
+            from ..analytics.cost_tracker import CostTracker
+            
+            tracker = CostTracker(opt)
+            summary = await tracker.get_cost_summary()
+            
+            return APIResponse(
+                success=True,
+                data=summary,
+                message="Cost summary retrieved successfully"
+            )
+        except Exception as e:
+            logger.error(f"Error getting cost summary: {e}")
+            raise HTTPException(status_code=400, detail=str(e))
+
+    @app.get("/api/v1/analytics/quality-report", response_model=APIResponse)
+    async def get_quality_report():
+        """Get quality scoring report."""
+        try:
+            opt = get_optimizer()
+            from ..analytics.quality_scorer import QualityScorer
+            
+            scorer = QualityScorer(opt)
+            report = await scorer.generate_quality_report()
+            
+            return APIResponse(
+                success=True,
+                data=report,
+                message="Quality report generated successfully"
+            )
+        except Exception as e:
+            logger.error(f"Error generating quality report: {e}")
+            raise HTTPException(status_code=400, detail=str(e))
+
+    @app.get("/api/v1/analytics/generate-report", response_model=APIResponse)
+    async def generate_analytics_report(experiment_id: str, report_type: str = "comprehensive"):
+        """Generate a comprehensive analytics report."""
+        try:
+            opt = get_optimizer()
+            from ..analytics.reports import ReportGenerator
+            
+            generator = ReportGenerator(opt)
+            report = await generator.generate_report(experiment_id, report_type)
+            
+            return APIResponse(
+                success=True,
+                data=report,
+                message=f"{report_type.capitalize()} report generated successfully"
+            )
+        except Exception as e:
+            logger.error(f"Error generating analytics report: {e}")
+            raise HTTPException(status_code=400, detail=str(e))
+
+    # Security Endpoints
+    @app.post("/api/v1/security/check-content", response_model=APIResponse)
+    async def check_content_safety(request: ContentSafetyRequest):
+        """Check content for safety and compliance."""
+        try:
+            opt = get_optimizer()
+            from ..security.content_moderator import ContentModerator
+            
+            moderator = ContentModerator(opt)
+            result = await moderator.check_content(request.content)
+            
+            return APIResponse(
+                success=True,
+                data=result,
+                message="Content safety check completed"
+            )
+        except Exception as e:
+            logger.error(f"Error checking content safety: {e}")
+            raise HTTPException(status_code=400, detail=str(e))
+
+    @app.post("/api/v1/security/detect-bias", response_model=APIResponse)
+    async def detect_bias(request: BiasDetectionRequest):
+        """Detect bias in text content."""
+        try:
+            opt = get_optimizer()
+            from ..security.bias_detector import BiasDetector
+            
+            detector = BiasDetector(opt)
+            result = await detector.detect_bias(request.text)
+            
+            return APIResponse(
+                success=True,
+                data=result,
+                message="Bias detection completed"
+            )
+        except Exception as e:
+            logger.error(f"Error detecting bias: {e}")
+            raise HTTPException(status_code=400, detail=str(e))
+
+    @app.post("/api/v1/security/check-injection", response_model=APIResponse)
+    async def check_injection_attack(request: InjectionDetectionRequest):
+        """Check for prompt injection attacks."""
+        try:
+            opt = get_optimizer()
+            from ..security.injection_detector import InjectionDetector
+            
+            detector = InjectionDetector(opt)
+            result = await detector.detect_injection(request.prompt)
+            
+            return APIResponse(
+                success=True,
+                data=result,
+                message="Injection attack check completed"
+            )
+        except Exception as e:
+            logger.error(f"Error checking for injection attacks: {e}")
+            raise HTTPException(status_code=400, detail=str(e))
+
+    @app.get("/api/v1/security/audit-logs", response_model=APIResponse)
+    async def get_audit_logs(limit: int = 100, offset: int = 0):
+        """Get security audit logs."""
+        try:
+            opt = get_optimizer()
+            from ..security.audit_logger import AuditLogger
+            
+            logger_instance = AuditLogger(opt)
+            logs = await logger_instance.get_logs(limit=limit, offset=offset)
+            
+            return APIResponse(
+                success=True,
+                data={"logs": logs, "total": len(logs)},
+                message="Audit logs retrieved successfully"
+            )
+        except Exception as e:
+            logger.error(f"Error getting audit logs: {e}")
+            raise HTTPException(status_code=400, detail=str(e))
+
+    @app.post("/api/v1/security/compliance-check", response_model=APIResponse)
+    async def check_compliance(request: ComplianceCheckRequest):
+        """Check experiment compliance with security policies."""
+        try:
+            opt = get_optimizer()
+            from ..security.compliance_checker import ComplianceChecker
+            
+            checker = ComplianceChecker(opt)
+            result = await checker.check_experiment_compliance(request.experiment_id)
+            
+            return APIResponse(
+                success=True,
+                data=result,
+                message="Compliance check completed"
+            )
+        except Exception as e:
+            logger.error(f"Error checking compliance: {e}")
+            raise HTTPException(status_code=400, detail=str(e))
+
+    # Advanced Analytics Endpoints
+    @app.get("/api/v1/analytics/predictive", response_model=APIResponse)
+    async def get_predictive_analytics(experiment_id: str):
+        """Get predictive analytics for an experiment."""
+        try:
+            opt = get_optimizer()
+            from ..analytics.advanced.predictive_analytics import PredictiveAnalytics
+            
+            analytics = PredictiveAnalytics(opt)
+            predictions = await analytics.generate_predictions(experiment_id)
+            
+            return APIResponse(
+                success=True,
+                data=predictions,
+                message="Predictive analytics generated successfully"
+            )
+        except Exception as e:
+            logger.error(f"Error generating predictive analytics: {e}")
+            raise HTTPException(status_code=400, detail=str(e))
+
+    # Testing Endpoints
+    @app.post("/api/v1/testing/ab-test", response_model=APIResponse)
+    async def run_ab_test(request: ABTestRequest):
+        """Run A/B test with specified sample size."""
+        try:
+            opt = get_optimizer()
+            from ..testing.ab_test import ABTestRunner
+            
+            runner = ABTestRunner(opt)
+            results = await runner.run_test(request.experiment_id, request.sample_size)
+            
+            return APIResponse(
+                success=True,
+                data=results,
+                message="A/B test completed successfully"
+            )
+        except Exception as e:
+            logger.error(f"Error running A/B test: {e}")
+            raise HTTPException(status_code=400, detail=str(e))
+
+    @app.get("/api/v1/testing/significance", response_model=APIResponse)
+    async def calculate_significance(experiment_id: str, variant_a: str, variant_b: str):
+        """Calculate statistical significance between two variants."""
+        try:
+            opt = get_optimizer()
+            from ..testing.significance import SignificanceCalculator
+            
+            calculator = SignificanceCalculator(opt)
+            result = await calculator.calculate_significance(experiment_id, variant_a, variant_b)
+            
+            return APIResponse(
+                success=True,
+                data=result,
+                message="Statistical significance calculated successfully"
+            )
+        except Exception as e:
+            logger.error(f"Error calculating significance: {e}")
             raise HTTPException(status_code=400, detail=str(e))
 
     # Error handlers
